@@ -1,4 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// Project:     SOA_A4
+// Class:       Software oriented architecture
+// File:        Product.cs
+// Developer:   Harley Boss
+// Date:        November 5th 2019
+// Description: Shallow class representing a product
+
+
+using System.ComponentModel.DataAnnotations;
 
 namespace ProductApi.Models {
     public class Product {

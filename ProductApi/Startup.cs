@@ -1,3 +1,11 @@
+// Project:     SOA_A4
+// Class:       Software oriented architecture
+// File:        Startup.cs
+// Developer:   Harley Boss
+// Date:        November 5th 2019
+// Description: Starts up the API and initializes a connection to the database
+
+
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,13 +35,9 @@ namespace ProductApi {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });

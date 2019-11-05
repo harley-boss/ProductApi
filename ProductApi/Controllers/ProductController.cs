@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// Project:     SOA_A4
+// Class:       Software oriented architecture
+// File:        ProductController.cs
+// Developer:   Harley Boss
+// Date:        November 5th 2019
+// Description: This is the controller class that handles all the calls to the product table in the shopping db
+
+
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -14,17 +22,33 @@ namespace ProductApi.Controllers {
 
         private readonly ProductContext _context;
 
+        // Method:      ProductController
+        // Parameters:  ProductContext context
+        // Return:      n/a
+        // Description: Initiates the ProductController class
         public ProductController(ProductContext context) {
             _context = context;
         }
 
-        // GET: api/Product
+
+
+
+        // Method:      GetProduct
+        // Parameters:  n/a
+        // Return:      async Task<ActionResult<IEnumerable<Product>>>
+        // Description: Returns all products from the database
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProduct() {
             return await _context.Product.ToListAsync();
         }
 
-        // GET: api/Product/5
+
+
+
+        // Method:      GetProduct
+        // Parameters:  [FromRoute] int id
+        // Return:      async Task<ActionResult<Product>>
+        // Description: Returns a product from the database based on an id
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct([FromRoute] int id) {
             System.Diagnostics.Debug.WriteLine("Finding product with id: " + id);
@@ -38,9 +62,13 @@ namespace ProductApi.Controllers {
             return product;
         }
 
-        // PUT: api/Product/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+
+
+
+        // Method:      PutProduct
+        // Parameters:  int id, Product product
+        // Return:      async Task<IActionResult>
+        // Description: Update a product into the database
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product product) {
             if (id != product.prodId) {
@@ -62,18 +90,28 @@ namespace ProductApi.Controllers {
             return NoContent();
         }
 
-        // POST: api/Product
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+
+
+
+        // Method:      PostCustomer
+        // Parameters:  Product product
+        // Return:      async Task<ActionResult<Product>>
+        // Description: Insert a product into the db
         [HttpPost]
-        public async Task<ActionResult<Product>> PostCustomer(Product product) {
+        public async Task<ActionResult<Product>> PostProduct(Product product) {
             _context.Product.Add(product);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetProduct", new { id = product.prodId }, product);
         }
 
-        // DELETE: api/Product/5
+
+
+
+        // Method:      DeleteProduct
+        // Parameters:  int id
+        // Return:      async Task<ActionResult<Product>>
+        // Description: Deletes a product from the db based on id
         [HttpDelete("{id}")]
         public async Task<ActionResult<Product>> DeleteProduct(int id) {
             var product = await _context.Product.FindAsync(id);
@@ -87,6 +125,13 @@ namespace ProductApi.Controllers {
             return product;
         }
 
+
+
+
+        // Method:      ProductExists
+        // Parameters:  int id
+        // Return:      bool
+        // Description: Returns true or false if a id exists in the database
         private bool ProductExists(int id) {
             return _context.Product.Any(e => e.prodId == id);
         }
